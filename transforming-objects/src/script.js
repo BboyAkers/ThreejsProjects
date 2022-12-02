@@ -11,20 +11,34 @@ const canvas = document.querySelector('.webgl');
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height);
 
-const box = new THREE.BoxGeometry(1, 1, 1);
-const materialRed = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-const redBox = new THREE.Mesh(box, materialRed);
+const group = new THREE.Group();
 
-redBox.position.set(2, 1, 1);
-redBox.scale.set(1, 1, 0.5);
-redBox.rotation.reorder('YXZ');
-redBox.rotation.set(Math.PI * 0.25, Math.PI * 0.25, 1)
+const cube1 = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.MeshBasicMaterial({ color: 0xff0000 })
+)
+group.add(cube1);
+
+const cube2 = new THREE.Mesh(
+  new THREE.BoxGeometry(-1, 1, 1),
+  new THREE.MeshBasicMaterial({ color: 0x00ff00 }),
+)
+cube2.position.x = -1;
+group.add(cube2);
+
+const cube3 = new THREE.Mesh(
+  new THREE.BoxGeometry(-1, 1, 1),
+  new THREE.MeshBasicMaterial({ color: 0x0000ff }),
+)
+cube3.position.x = 1;
+group.add(cube3);
 
 const axesHelper = new THREE.AxesHelper();
 
 camera.position.set(1, 1, 3);
 
-scene.add(redBox)
+group.position.y = 1;
+scene.add(group);
 scene.add(axesHelper);
 scene.add(camera);
 
